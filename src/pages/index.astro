@@ -1,0 +1,99 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE, IDENTITIES, STACK } from "../consts";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+---
+<Base current="/">
+  <!-- hero -->
+  <section class="shell hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">200&ndash;1000 m · the twilight zone</p>
+        <h1>Eric Marchand</h1>
+        <p class="lede">
+          Open-source software writer <em>by night</em>. Swift, AI tooling,
+          and notes from where the sunlight runs out.
+        </p>
+        <div class="cta-row">
+          <a class="btn" href="/blog/">Read the writing</a>
+          <a class="btn btn--moon" href="https://github.com/phimage" rel="me noopener">GitHub &#8599;</a>
+        </div>
+      </div>
+      <div class="phi-mark" aria-hidden="true">
+        <span class="ring"></span>
+        <img class="glyph" src="/logo.png" alt="" width="548" height="619" />
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- identities: three depths -->
+  <section class="shell" id="work">
+    <p class="eyebrow">Three handles, one diver</p>
+    <h2>Where I surface</h2>
+    <p class="lead-2" style="margin-bottom:2rem">
+      The same person at three depths &mdash; the day job at the surface, the open
+      experiments in the twilight, the personal Swift &amp; AI work after dark.
+    </p>
+    <div class="depths">
+      {IDENTITIES.map((id) => (
+        <a class="depth" href={id.href} rel="me noopener" style={`--avatar: url('${id.avatar}')`}>
+          <span class="zone">{id.zone}</span>
+          <span class="handle"><span class="at">@</span>{id.handle}</span>
+          <p>{id.blurb}</p>
+          <span class="go">github.com/{id.handle} &#8599;</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- stack -->
+  <section class="shell" id="stack">
+    <p class="eyebrow">Instruments</p>
+    <h2>What I build with</h2>
+    <p class="lead-2" style="margin-bottom:1.6rem">
+      Mostly Swift and 4D by trade; AI tooling and language plumbing by curiosity.
+    </p>
+    <div class="chips">
+      {STACK.map((s) => <span class="chip">{s}</span>)}
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- writing -->
+  <section class="shell" id="writing">
+    <p class="eyebrow">Field notes</p>
+    <h2>Writing</h2>
+    <div class="posts">
+      {posts.length === 0 && (
+        <p class="dim">Nothing surfaced yet. Soon.</p>
+      )}
+      {posts.map((post) => (
+        <article class="post-row">
+          <a class="cover" href={`/blog/${post.id}/`} aria-label={post.data.title}></a>
+          <time class="date" datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+          <div>
+            <h3>{post.data.title}</h3>
+            <p class="excerpt">{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="chips post-tags">
+                {post.data.tags.map((t) => <span class="chip">{t}</span>)}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

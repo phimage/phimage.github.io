@@ -1,0 +1,46 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+---
+<Base title="Writing" description="Field notes on AI tooling, Swift, and developer workflows — by phimage." current="/blog/">
+  <section class="shell" style="padding-top:clamp(3rem,7vw,5rem)">
+    <p class="eyebrow">Field notes</p>
+    <h1>Writing</h1>
+    <p class="lead-2" style="margin-bottom:2.4rem">
+      Field notes on AI tooling, written from the deep end as I run into it &mdash;
+      mostly from a 4D developer&rsquo;s chair. There&rsquo;s a through-line I didn&rsquo;t
+      plan: it opens in March 2025 asking whether anyone had tried MCP, and almost
+      everything since is the same story from a new angle &mdash; the ecosystem quietly
+      settling on a few boring, shared standards. Spawn a process and speak JSON-RPC
+      (MCP, ACP, the Copilot SDK, Apple&rsquo;s <code>fm serve</code>); drop a standard
+      file at the repo root and let any agent read it (<code>AGENTS.md</code>, Agent
+      Skills). The loud buzzwords &mdash; context engineering, loop engineering &mdash;
+      come and go; the standards are what stick. Newest first.
+    </p>
+    <div class="posts">
+      {posts.length === 0 && <p class="dim">Nothing surfaced yet. Soon.</p>}
+      {posts.map((post) => (
+        <article class="post-row">
+          <a class="cover" href={`/blog/${post.id}/`} aria-label={post.data.title}></a>
+          <time class="date" datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+          <div>
+            <h3>{post.data.title}</h3>
+            <p class="excerpt">{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="chips post-tags">
+                {post.data.tags.map((t) => <span class="chip">{t}</span>)}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

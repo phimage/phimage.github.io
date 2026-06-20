@@ -1,0 +1,14 @@
+---
+import { SOCIALS, SITE } from "../consts";
+const year = new Date().getFullYear();
+---
+<footer class="site-foot">
+  <div class="shell foot-grid">
+    <nav class="foot-links" aria-label="Elsewhere">
+      {SOCIALS.map((s) => (
+        <a href={s.href} rel={s.href.startsWith("http") ? "me noopener" : undefined}>{s.label}</a>
+      ))}
+    </nav>
+    <p class="foot-note">&#966; {SITE.author} · {year} · built in the twilight zone</p>
+  </div>
+</footer>

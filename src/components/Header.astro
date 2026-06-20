@@ -1,0 +1,20 @@
+---
+import { NAV } from "../consts";
+interface Props { current?: string; }
+const { current = "/" } = Astro.props;
+---
+<header class="site-head">
+  <div class="shell bar">
+    <a class="brand" href="/" aria-label="phimage — home">
+      <img class="phi" src="/logo.png" alt="" aria-hidden="true" width="548" height="619" />
+      <span>phimage</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      {NAV.map((item) => (
+        <a href={item.href} aria-current={current === item.href ? "page" : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
