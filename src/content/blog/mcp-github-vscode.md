@@ -2,7 +2,7 @@
 title: "MCP, in practice: GitHub in VS Code — checked in for the team"
 description: "Eight months after wondering whether anyone had tried MCP, here it is running for real: the GitHub MCP server in VS Code, wired to our issues, projects, and test cases — with the config committed to the repo so the whole team gets it on checkout."
 pubDate: 2025-10-31
-tags: ["ai", "mcp", "github", "4d"]
+tags: ["ai", "mcp", "github"]
 ---
 
 A while back I asked whether anyone had actually *tried* MCP. Update: I have, and it
@@ -29,16 +29,6 @@ That's it. You point VS Code at GitHub's **remote** MCP server, authenticate onc
 with OAuth (VS Code 1.101+), toggle Agent mode, and the tools show up. No Docker, no
 personal access token to babysit, nothing to install.
 
-## Committed to `4d/4d`, so the team gets it for free
-
-The nice part: I pushed that file into our
-[4d/4d](https://github.com/4d/4d) repo
-([`.vscode/mcp.json`](https://github.com/4d/4d/blob/main/.vscode/mcp.json)). Since our
-features, requirements, and test cases all live there, **checking out the repo now
-also wires up the MCP server.** Anyone on the team can open it, authenticate, and ask
-the agent to triage an issue, summarize a project's progress, or pull context on a
-requirement — against our real data, no per-person setup.
-
 ## What it can actually do
 
 The default toolsets cover most of what you'd want, and you can trim or extend them
@@ -61,7 +51,7 @@ window lean.
 ## PS — it doesn't have to be per-project
 
 `.vscode/mcp.json` is the per-repo route, which is what I wanted here so it travels
-with `4d/4d`. But you can also install MCP servers
+with my project. But you can also install MCP servers
 [globally in your VS Code user profile](https://code.visualstudio.com/docs/copilot/customization/mcp-servers),
 or let them be discovered from a Claude config — handy for servers you want
 everywhere, not just in one repo.
