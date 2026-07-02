@@ -40,6 +40,12 @@ with an `X-MCP-Toolsets` header (or flip the whole thing read-only for safety):
 - **Actions** — inspect CI/CD runs, fetch logs, re-run failed jobs.
 - **Code security** — surface code-scanning and Dependabot alerts.
 
+```json
+      "headers" : {
+        "X-MCP-Toolsets": "context,issues,labels,orgs,projects,users"
+      }
+```
+
 A late-October update also added
 [**server instructions**](https://github.blog/changelog/2025-10-29-github-mcp-server-now-comes-with-server-instructions-better-tools-and-more/)
 — think of it as a system prompt baked into the server itself, telling the model how
