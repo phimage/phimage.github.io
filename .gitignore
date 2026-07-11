@@ -1,5 +1,6 @@
 # build output
 dist/
+.crosspost-out/
 # generated types
 .astro/
 # deps
