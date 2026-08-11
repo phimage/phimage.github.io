@@ -2,6 +2,7 @@
 title: "Debugging with agents, à l'envers: MCP in, or DAP out? 🐛"
 description: "I almost bolted an MCP server onto my debug session so my chat agent could poke at it. Then I realized I had the arrow backwards — an autonomous debugging agent should speak the debugger's own protocol. That protocol already exists: DAP. So I tried it, even on 4D."
 pubDate: 2026-08-09
+updatedDate: 2026-08-10
 tags: ["ai", "agents", "dap", "mcp", "debugging", "4d", "open-source"]
 ---
 
@@ -105,6 +106,12 @@ For everyone else, the pragmatic bridge is exactly the thing I called *à l'enve
 
 So it's not one arrow or the other. It's: DAP when the agent has it, MCP or skills
 to bridge the ones that don't — ideally over the *same* debug backend underneath.
+
+> **Update (Aug 10, 2026):** I'm going to actually try that MCP-debug-server side —
+> [**oh-mcp-dap**](https://github.com/phimage/oh-mcp-dap) (a wink at *oh my pi*): an
+> experiment that wraps a DAP backend as an MCP server, so DAP-less agents like
+> Claude Code or Copilot get the same debugging tools omp has natively. Same debug
+> backend underneath, exposed the other way round. I'll report back.
 
 ## So which way round?
 
